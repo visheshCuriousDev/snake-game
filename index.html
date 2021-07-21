@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Snake !!</title>
+        <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="snake.css">
+        <script scr="third-party.js"></script>
+    </head>
+    <body>
+        <div class="game-container">
+            <section class="snake-board">
+                <div class="title-container">
+                    <h1 class="title">
+                        Snake
+                    </h1>
+                    <button id="startBtn" onclick="start()" class="options-btn start">
+                        Start
+                    </button>
+                    <button onclick="restartGame()" id="restart" class="options-btn">
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                        Restart
+                    </button>
+                    <div class="options">
+                        <i class="fa fa-volume-off" id="soundOff" onclick="toggleSounds(true)" aria-hidden="true"></i>
+                        <i class="fa fa-volume-up" id="soundOn" onclick="toggleSounds(false)" aria-hidden="true"></i>
+                        <div class="score">
+                            Score: <span id="score">0</span>
+                        </div>
+                        <div class="score">
+                            Previous best: <span id="prevScore">0</span>
+                        </div>
+                    </div>
+                </div>
+                <canvas id="snakeBoard"></canvas>
+            </section>
+        </div>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <!-- The Close Button -->
+            <span class="close">&times;</span>
+        
+            <!-- Modal Content (The Image) -->
+            <img class="modal-content" id="monkeyImg" src="monkey.gif">
+        
+            <!-- Modal Caption (Image Text) -->
+            <div id="caption"> Even a monkey could have done better than you !! Try again ...</div>
+        </div>
+        <!-- Load the script at last as canvas reference is required -->
+        <script src="snake.js"></script>
+    </body>
+</html>
