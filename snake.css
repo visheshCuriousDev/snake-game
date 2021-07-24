@@ -20,8 +20,8 @@ html, body {
 
 .title-container {
     display: flex;
+    flex-direction: row;
 }
-
 .title {
     font-weight: bolder;
     /* Fallback: Set a background color. */
@@ -42,118 +42,296 @@ html, body {
     -moz-text-fill-color: transparent;
     flex-flow:row;
 }
+.sub-title {
+  font-size: 14px;
+  color: #000;
+  background-color: none;
+  background-image: none;
+  cursor: pointer;
+}
+
+.tip {
+  margin-top: -5px;
+  padding: 10px 10px 5px 10px;
+  display: inline-flex;
+  color: #6c9616;
+  font-weight: bolder;
+  animation:animateright 0.8s;
+  border: 3px dashed #6c9616;
+  background-color: #fff7b9;
+  border-radius: 20px;
+  position: absolute;
+  text-align: right;
+  right: 0;
+  z-index: 1;
+  display: none;
+}
+.fa-lightbulb-o {
+  font-size: 30px;
+  margin: -5px 10px 0px 0px;
+}
 
 .options {
-    margin-left: auto;
-    padding: 25px 0px 25px 25px;
-    display: inline-flex;
+  margin-left: auto;
+  padding: 25px 0px 25px 25px;
+  display: inline-flex;
 }
 .score {
-    font-weight: bolder;
-    margin-right: 25px;
+  font-weight: bolder;
+  margin-right: 25px;
 }
 .options-btn {
-    margin: 17px 10px;
-    height: min-content;
-    display: block;
-    padding: 5px 10px;
-    background-color: cornflowerblue;
-    border-radius: 5px;
-    color: #ffffff;
-    cursor: pointer;
-    display: none;
+  margin: 17px 10px;
+  height: min-content;
+  display: block;
+  padding: 5px 10px;
+  background-color: cornflowerblue;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+  display: none;
 }
 .options-btn.start {
-    background-color: lightgreen;
-    color: black;
-    font-size: 16px;
-    display: block;
+  background-color: lightgreen;
+  color: black;
+  font-size: 16px;
+  display: block;
+}
+.options-btn.mob-mode {
+  display: block;
 }
 .fa-refresh {
     margin-right: 5px;
 }
 .fa-volume-off, .fa-volume-up {
-    display: none;
-    margin-right: 10px;
-    cursor: pointer;
+  display: none;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
 #snakeBoard {
-    display: block;
-    border: 5px solid #cc7a6e;
-    width: 100%;
-    height: 85%;
+  display: block;
+  border: 5px solid #cc7a6e;
+  width: 100%;
+  height: 85%;
 }
 
 
 /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+#myModal .modal-content {
+  margin: auto;
+  display: block;
+  width: 60%;
+  max-width: 700px;
+}
+/* Joystick info modals content */
+.joystickModal .modal-content {
+  margin: auto;
+  display: inline-block;
+  width: 100%;
+}
+.joystickModal .type {
+  width: 50%;
+  max-width: 50%;
+  text-align: center;
+}
+.type.click{
+  float: left;
+  margin: 0 auto;
+}
+.type.drag{
+  float: right;
+  margin: 0 auto;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+  font-weight: bolder;
+}
+#caption.desc {
+  height: 100%;
+  text-align: left;
+}
+.highlights li {
+  padding: 10px;
+}
+.highlights .important {
+  font-weight: bolder;
+  color: red;
+}
+/* #caption p{
+  width: 0%;
+  opacity: 0;
+  animation: type 4s steps(60, end) forwards;
+  white-space: nowrap;
+  overflow: hidden;
+}
+#caption .highlights {
+  width: 0%;
+  opacity: 0;
+  animation: type 4s steps(60, end) forwards;
+  white-space: nowrap;
+  overflow: hidden;
+}
+#caption p:nth-child(2) {
+  animation-delay: 1s;
+}
+#caption p:nth-child(3) {
+  animation-delay: 3s;
+}
+#caption p:nth-child(4) {
+  animation-delay: 5s;
+}
+#caption .highlights {
+  animation-delay: 7s;
+}
+@keyframes type {
+  0% {
+    opacity: 1;
   }
-  
-  /* Modal Content (Image) */
+  100% {
+    width: 100%;
+    opacity: 1;
+    white-space: inherit;
+    overflow: auto;
+  }
+} */
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.modalClose {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.modalClose:hover,
+.modalClose:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media screen and (max-width: 764px){
   .modal-content {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
+    width: 100%;
   }
-  
-  /* Caption of Modal Image (Image Text) - Same Width as the Image */
-  #caption {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    color: #ccc;
-    padding: 10px 0;
-    height: 150px;
-    font-weight: bolder;
+  .title-container {   
+    flex-direction: column;
   }
-  
-  /* Add Animation - Zoom in the Modal */
-  .modal-content, #caption {
-    animation-name: zoom;
-    animation-duration: 0.6s;
+  .title {
+    margin: 0px;
   }
-  
-  @keyframes zoom {
-    from {transform:scale(0)}
-    to {transform:scale(1)}
+  .options-btn {
+    margin: 10px 0px;
   }
-  
-  /* The Close Button */
-  .close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
+  .options {
+    margin: 10px 0px;
+    padding: 0px;
   }
-  
-  .close:hover,
-  .close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
+  /* Modal styles */
+  .joystickModal .type {
+    width: 100%;
+    max-width: 100%;
   }
-  
-  /* 100% Image Width on Smaller Screens */
-  @media only screen and (max-width: 700px){
-    .modal-content {
-      width: 100%;
-    }
-  }
+}
+/* right to lect animation */
+@keyframes animateright{from{right:-300px;opacity:0} to{right:0;opacity:1}}
+
+/* Board controls */
+.board_controls {
+  position: absolute;
+  bottom: 20;
+  right: 20;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+  display: none;
+}
+.board_controls div{
+  min-width: 40px;
+  min-height: 40px;
+}
+.board_controls .control {
+  padding-top: 40px;
+}
+.board_controls .left,
+.board_controls .right {
+  display: table-cell;
+  vertical-align: middle;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  height: 40px;
+  cursor: pointer;
+}
+.board_controls .left {
+  border-left: 1px solid #000;
+  border-radius: 5px 0px 0px 5px;
+}
+.board_controls .right {
+  border-right: 1px solid #000;
+  border-radius: 0px 5px 5px 0px;
+}
+.board_controls .top,
+.board_controls .bottom {
+  display: table-cell;
+  vertical-align: middle;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  height: 40px;
+  cursor: pointer;
+}
+.board_controls .top {
+  border-left: 1px solid #000;
+  border-top: 1px solid #000;
+  border-radius: 5px 5px 0px 0px;
+}
+.board_controls .bottom {
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  border-radius: 0px 0px 5px 5px;
+}
+.joystick {
+  font-size: 24px;
+  margin: 10px 0px 5px 0px;
+}
+
+

@@ -1,8 +1,9 @@
 <html>
     <head>
         <title>Snake !!</title>
-        <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet" crossorigin="anonymous" data-noprefix>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" data-noprefix>
         <link rel="stylesheet" href="snake.css">
         <script scr="third-party.js"></script>
     </head>
@@ -11,7 +12,7 @@
             <section class="snake-board">
                 <div class="title-container">
                     <h1 class="title">
-                        Snake
+                        Snake <span class="sub-title" onclick="explanation()">(What is this?)</span>
                     </h1>
                     <button id="startBtn" onclick="start()" class="options-btn start">
                         Start
@@ -20,6 +21,13 @@
                         <i class="fa fa-refresh" aria-hidden="true"></i>
                         Restart
                     </button>
+                    <button onclick="mobileMode()" class="options-btn mob-mode" id="show-joystick-btn">
+                        Show joystick
+                    </button>
+                    <div class="tip" id="tip">
+                        <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                        <span id="tip-content"></span>
+                    </div>
                     <div class="options">
                         <i class="fa fa-volume-off" id="soundOff" onclick="toggleSounds(true)" aria-hidden="true"></i>
                         <i class="fa fa-volume-up" id="soundOn" onclick="toggleSounds(false)" aria-hidden="true"></i>
@@ -32,18 +40,83 @@
                     </div>
                 </div>
                 <canvas id="snakeBoard"></canvas>
+                <img style="display:none" id="fg1" src="fg1.jpeg" width="10px" height="10px">
+                <img style="display:none" id="fg2" src="fg2.jpg" width="10px" height="10px">
             </section>
         </div>
-        <!-- The Modal -->
+        
+        <!-- The Monkey Modal -->
         <div id="myModal" class="modal">
             <!-- The Close Button -->
-            <span class="close">&times;</span>
+            <span class="modalClose">&times;</span>
         
             <!-- Modal Content (The Image) -->
             <img class="modal-content" id="monkeyImg" src="monkey.gif">
         
             <!-- Modal Caption (Image Text) -->
             <div id="caption"> Even a monkey could have done better than you !! Try again ...</div>
+        </div>
+        <!-- The Board Info Modal -->
+        <div id="joystickModal" class="modal joystickModal">
+            <!-- The Close Button -->
+            <span class="modalClose">&times;</span>
+            <div class="modal-content">
+                <div class="type click">
+                    <img class="" id="joystickImg" src="controls1.png">
+                    <div id="caption"> You can press the arrow keys to move the snake</div>
+                </div>
+                <div class="type drag">
+                    <img class="" id="joystickImg" src="controls2.jpg">
+                    <div id="caption"> You can also drag the center circle to any of the direction pads to move the snake that way</div>
+                </div>
+            </div>
+        </div>
+        <!-- The Board Info Modal -->
+        <div id="descModal" class="modal descModal">
+            <!-- The Close Button -->
+            <span class="modalClose">&times;</span>
+            <div id="caption" class="desc">
+                <p> Come on, isin't obvious. This is a snake game... </p>
+                <p> Ok, if you seriously cannot understand dont worry I will help you !! </p>
+                <p> This is prestigious game that clearly explain's what happens when you eat too much 🤪. Once apon a time a snake always working hard and eating all the
+                    frog's in the garden. And then it died... Seriously thats it... 😝 </p>
+                <p> Its so diffult coding this stuff. So please play it and let me know how it work's. Below are few of its highlights, </p>
+                <ul class="highlights">
+                    <li> This is completely done using VannilaJS (only using HTML/CSS/Javascript). Not copied from stackoverflow. 🙂 </li>
+                    <li> It is responsive 😎, works in all browsers and at various screen sizes (Dektop or Mobile) </li>
+                    <li> It has funny sounds !! Do check your volume </li>
+                    <li>
+                        <span class="important">
+                            It has a custom built joystick !! Sort off ... Its was a pain in the A@# to build it from strach.
+                            I had to waste my whole saturday for it. So all mobile users please use it. Else you cannot control the snake.
+                        </span>
+                        Click on "Show joystick" button.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Board controls -->
+        <div class="board_controls" id="board_controls">
+            <div class="control">
+                <div class="left" ondragover="changeDirection(37)" onclick="changeDirection(37)">
+                    <i class="fa fa-caret-left" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="top_bottom_control">
+                <div class="top" ondragover="changeDirection(38)" onclick="changeDirection(38)">
+                    <i class="fa fa-caret-up" aria-hidden="true"></i>
+                </div>
+                <i class="fa fa-stop-circle joystick" [title]="Drag me" aria-hidden="true" draggable="true"></i>
+                <div class="bottom" ondragover="changeDirection(40)" onclick="changeDirection(40)">
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="control">
+                <div class="right" ondragover="changeDirection(39)" onclick="changeDirection(39)">
+                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                </div>
+            </div>
         </div>
         <!-- Load the script at last as canvas reference is required -->
         <script src="snake.js"></script>

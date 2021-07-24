@@ -4,12 +4,14 @@
 
 // Modal initialisations
 const modal = document.getElementById("myModal");
+const joystickModal = document.getElementById("joystickModal");
+const descModal = document.getElementById("descModal");
 const monkeyImg = document.getElementById("monkeyImg");
 
 // Sounds initialisations
 let sounds = true;
 toggleSounds(true);
-const biteAudio = new Audio("http://freesoundeffect.net/sites/default/files/insect-eat-chew-bu01-238-sound-effect-64440918.mp3");
+const biteAudio = new Audio("eat.mp3");
 const crashAudio = new Audio("crash.mp3");
 
 let snakesize = 10;
@@ -70,6 +72,7 @@ let mainInterval;
 let food_x;
 let food_y;
 let score = 0;
+let showControls = false;
 
 // Add key press event
 document.addEventListener("keydown", changeDirection);
@@ -155,24 +158,34 @@ function moveForward() {
     }
     let next_x = snake[0].x + dx;
     let next_y = snake[0].y + dy;
-    if(next_x === food_x && next_y === food_y) {
+    if((next_x === food_x && next_y === food_y) || isSnakeOnFood(next_x-snakesize, next_y-snakesize, next_x+snakesize, next_y+snakesize, food_x, food_y)) {
         playBiteAudio();
         get_food();
         draw_food();
         score += 5;
         document.getElementById("score").innerHTML = ''+score;
         increaseSnake();
+        setTip();
     }
     snake.unshift({x: next_x, y: next_y});
     snake.pop();
 }
 
+// When the food is miss placed with snakes trajectory. Then this function will check if snake is within the foods boundry
+function isSnakeOnFood(x1, y1, x2, y2, x, y) {
+    if (x > x1 && x < x2 && y > y1 && y < y2)
+        return true;
+ 
+    return false;
+}
+
 function changeDirection(event) {
+    console.log(event);
     const LEFT_KEY = 37;
     const RIGHT_KEY = 39;
     const UP_KEY = 38;
     const DOWN_KEY = 40;
-    const key = event.keyCode;
+    const key = (event.keyCode) ? event.keyCode : event;
     // Check this condition so that when two array keys are press only one is executed by the time the interval comes back ot moe the snake
     if(changing_directon){
         return;
@@ -229,10 +242,17 @@ function stabilizeFoodPosition(food, snakeCoordinate) {
 }
 
 function draw_food() {
-    board_cxt.fillStyle = 'lightgreen';
-    board_cxt.strokeStyle = 'darkgreen';
-    board_cxt.fillRect(food_x, food_y, snakesize, snakesize);
-    board_cxt.strokeRect(food_x, food_y, snakesize, snakesize);
+    // board_cxt.fillStyle = 'lightgreen';
+    // board_cxt.strokeStyle = 'darkgreen';
+    // board_cxt.fillRect(food_x, food_y, snakesize, snakesize);
+    // board_cxt.strokeRect(food_x, food_y, snakesize, snakesize);
+    let img;
+    if(score % 2 === 0){
+        img = document.getElementById("fg1");
+    } else {
+        img = document.getElementById("fg2");
+    }
+    board_cxt.drawImage(img, food_x, food_y, snakesize, snakesize);
 }
 
 function increaseSnake() {
@@ -295,11 +315,42 @@ function toggleSounds(val = false) {
     }
 }
 
+function setTip() {
+    if(score === 20) {
+        document.getElementById("tip").style.display = "inline-flex";
+        document.getElementById("tip-content").innerHTML = "Tip: Don't die !!! :-)";
+        setTimeout(() => {
+            document.getElementById("tip").style.display = "none";
+        },10000);
+    }
+}
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+var span = document.getElementsByClassName("modalClose");
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-    monkeyImg.style.display = "none";
+for(let i=0; i<span.length; i++) {
+    span[i].onclick = function() {
+        if(modal) modal.style.display = "none";
+        if(joystickModal) joystickModal.style.display = "none";
+        if(descModal) descModal.style.display = "none";
+        if(monkeyImg) monkeyImg.style.display = "none";
+    }
+}
+
+function mobileMode() {
+    if(!showControls) {
+        document.getElementById("board_controls").style.display = "inline-flex";
+        document.getElementById("show-joystick-btn").innerHTML = "Hide joystick";
+        document.getElementById("show-joystick-btn").style.backgroundColor = "red";
+        joystickModal.style.display = "block";
+    } else {
+        document.getElementById("board_controls").style.display = "none";
+        document.getElementById("show-joystick-btn").innerHTML = "Show joystick";
+        document.getElementById("show-joystick-btn").style.backgroundColor = "cornflowerblue";
+    }
+    showControls = !showControls;
+}
+
+function explanation() {
+    descModal.style.display = "block";
 }
