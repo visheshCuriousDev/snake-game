@@ -21,7 +21,7 @@
                         <i class="fa fa-refresh" aria-hidden="true"></i>
                         Restart
                     </button>
-                    <button onclick="mobileMode()" class="options-btn mob-mode" id="show-joystick-btn">
+                    <button onclick="joystickMode()" class="options-btn mob-mode" id="show-joystick-btn">
                         Show joystick
                     </button>
                     <div class="tip" id="tip">
@@ -59,7 +59,7 @@
         <!-- The Board Info Modal -->
         <div id="joystickModal" class="modal joystickModal">
             <!-- The Close Button -->
-            <span class="modalClose">&times;</span>
+            <span id="joyModalClose" class="modalClose">&times;</span>
             <div class="modal-content">
                 <div class="type click">
                     <img class="" id="joystickImg" src="controls1.png">
@@ -119,6 +119,7 @@
             </div>
         </div>
         <!-- Load the script at last as canvas reference is required -->
+        <script src="util.js"></script>
         <script src="snake.js"></script>
     </body>
 </html>
