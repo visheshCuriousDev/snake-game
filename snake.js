@@ -77,19 +77,21 @@ document.addEventListener("keydown", changeDirection);
 /**
  * Main function that will recursively keep moving the snake
  */
-function main() {
+function main(resetValues = true) {
     // Reset initial values
-    dx = snakesize;
-    dy = 0;
-    snake = [
-        {x: centerWidth, y: centerHeigth},
-        {x: centerWidth - snakesize, y: centerHeigth},
-        {x: centerWidth - (snakesize*2), y: centerHeigth},
-        {x: centerWidth - (snakesize*3), y: centerHeigth},
-        {x: centerWidth - (snakesize*4), y: centerHeigth}
-    ];
-    score = 0;
-    setPreviousBestScore();
+    if(resetValues) {
+        dx = snakesize;
+        dy = 0;
+        snake = [
+            {x: centerWidth, y: centerHeigth},
+            {x: centerWidth - snakesize, y: centerHeigth},
+            {x: centerWidth - (snakesize*2), y: centerHeigth},
+            {x: centerWidth - (snakesize*3), y: centerHeigth},
+            {x: centerWidth - (snakesize*4), y: centerHeigth}
+        ];
+        score = 0;
+        setPreviousBestScore();
+    };
     // check if board is small and chnage the movement direction to up
     if(board_width < snakeSpeedReducerWitdh) {
         dy = -snakesize;
@@ -395,7 +397,7 @@ for(let i=0; i<span.length; i++) {
 // Redraw the board after closing joystick popup
 document.getElementById("joyModalClose").onclick = () => {
     joystickModal.style.display = "none";
-    main();
+    main(false);
 }
 
 /**
